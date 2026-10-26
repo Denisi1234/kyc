@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /error.html
 
-Sitemap: https://kijitonyamayouthchoir.org/sitemap.xml
+Sitemap: https://kijitonyamayouthchoir.co.tz/sitemap.xml
