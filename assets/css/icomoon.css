@@ -6,7 +6,7 @@
     url('../fonts/icomoon.woff?vdw2jk') format('woff'),
     url('../fonts/icomoon.svg?vdw2jk#icomoon') format('svg');
   font-weight: normal;
-  font-style:normal;font-display:swap;
+  font-style: normal;
 }
 
 [class^="icon-"],
@@ -14,7 +14,7 @@
   /* use !important to prevent issues with browser extensions that change fonts */
   font-family: 'icomoon' !important;
   speak: none;
-  font-style:normal;font-display:swap;
+  font-style: normal;
   font-weight: normal;
   font-variant: normal;
   text-transform: none;

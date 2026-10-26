@@ -176,7 +176,7 @@ function isotopeBlock() {
 isotopeBlock();
 
 function beforeAfterTwentyTwenty() {
-  if ($(".before-after-twentytwenty").length && $.fn.twentytwenty) {
+  if ($(".before-after-twentytwenty").length) {
     $(".before-after-twentytwenty").each(function () {
       var Self = $(this);
       var objName = Self.attr("id");
@@ -199,7 +199,7 @@ function beforeAfterTwentyTwenty() {
 //Fact counter
 function CounterNumberChanger() {
   var timer = $(".timer");
-  if (timer.length && $.fn.appear && $.fn.countTo) {
+  if (timer.length) {
     timer.appear(function () {
       timer.countTo();
     });
@@ -251,7 +251,7 @@ function projectMasonaryLayout() {
 // ===Image Hover Script===
 function onHoverthreeDmovement() {
   var tiltBlock = $(".js-tilt");
-  if (tiltBlock.length && $.fn.tilt) {
+  if (tiltBlock.length) {
     $(".js-tilt").tilt({
       maxTilt: 20,
       perspective: 700,
@@ -325,14 +325,14 @@ function swithcerMenu() {
 
 // Date picker
 function datepicker() {
-  if ($("#datepicker").length && $.fn.datepicker) {
+  if ($("#datepicker").length) {
     $("#datepicker").datepicker();
   }
 }
 
 // Price Filter
 function priceFilter() {
-  if ($(".price-ranger").length && $.fn.slider) {
+  if ($(".price-ranger").length) {
     $(".price-ranger #slider-range").slider({
       range: true,
       min: 10,
@@ -406,7 +406,7 @@ function bannerSlider() {
 
 //===Language switcher===
 function languageSwitcher() {
-  if ($("#polyglot-language-options").length && $.fn.polyglotLanguageSwitcher) {
+  if ($("#polyglot-language-options").length) {
     $("#polyglotLanguageSwitcher").polyglotLanguageSwitcher({
       effect: "slide",
       animSpeed: 500,
@@ -581,7 +581,7 @@ if ($(".team-carousel").length) {
 }
 
 // Vegas Slider
-if ($(".slider-bg-slide").length && $.fn.vegas) {
+if ($(".slider-bg-slide").length) {
   $(".slider-bg-slide").each(function () {
     var Self = $(this);
     var bgSlideOptions = Self.data("options");
@@ -611,7 +611,7 @@ if ($(".accordion-box").length) {
   });
 }
 
-if ($(".dial").length && $.fn.appear && $.fn.knob) {
+if ($(".dial").length) {
   $(".dial").appear(
     function () {
       var elm = $(this);
@@ -715,7 +715,7 @@ if ($(".count-box").length) {
 }
 
 //====== Magnific Popup
-if ($.fn.magnificPopup && $(".video-popup").length) if ($.fn.magnificPopup && $(".video-popup").length) $(".video-popup").magnificPopup({
+$(".video-popup").magnificPopup({
   type: "iframe",
   // other options
 });
@@ -738,7 +738,7 @@ if ($(".lightbox-image").length) {
 }
 
 if ($(".paroller").length) {
-  if ($.fn.paroller) if ($.fn.paroller) $(".paroller").paroller({
+  $(".paroller").paroller({
     factor: -0.1, // multiplier for scrolling speed and offset, +- values for direction control
     factorLg: -0.1, // multiplier for scrolling speed and offset if window width is less than 1200px, +- values for direction control
     type: "foreground", // background, foreground
@@ -747,7 +747,7 @@ if ($(".paroller").length) {
 }
 
 if ($(".paroller-2").length) {
-  if ($.fn.paroller) if ($.fn.paroller) $(".paroller-2").paroller({
+  $(".paroller-2").paroller({
     factor: 0.05, // multiplier for scrolling speed and offset, +- values for direction control
     factorLg: 0.05, // multiplier for scrolling speed and offset if window width is less than 1200px, +- values for direction control
     type: "foreground", // background, foreground
@@ -755,30 +755,32 @@ if ($(".paroller-2").length) {
   });
 }
 
-//Contact Form Validation & Submission
+//Contact Form Validation
 if ($("#contact-form").length) {
-  $("#contact-form").on("submit", function (e) {
-    e.preventDefault();
-    var $form = $(this);
-    var name = $.trim($form.find('[name="form_name"]').val());
-    var email = $.trim($form.find('[name="form_email"]').val());
-    var message = $.trim($form.find('[name="form_message"]').val());
-    var emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-    $("#form-result").remove();
-    if (!name || !email || !emailRe.test(email) || !message) {
-      $form.find('button[type="submit"]').before(
-        '<div id="form-result" class="alert alert-danger" role="alert" style="margin-bottom:15px;">Please fill in your name, a valid email address, and your message.</div>'
+  $("#contact-form").validate({
+    submitHandler: function (form) {
+      var form_btn = $(form).find('button[type="submit"]');
+      var form_result_div = "#form-result";
+      $(form_result_div).remove();
+      form_btn.before(
+        '<div id="form-result" class="alert alert-success" role="alert" style="display: none;"></div>',
       );
-      return;
-    }
-
-    $form[0].reset();
-    $form.find('button[type="submit"]').before(
-      '<div id="form-result" class="alert alert-success" role="alert" style="margin-bottom:15px;">Thank you, ' +
-        $("<div>").text(name).html() +
-        '! Your message has been received by Kijitonyama Youth Choir. We will get back to you shortly.</div>'
-    );
+      var form_btn_old_msg = form_btn.html();
+      form_btn.html(form_btn.prop("disabled", true).data("loading-text"));
+      $(form).ajaxSubmit({
+        dataType: "json",
+        success: function (data) {
+          if ((data.status = "true")) {
+            $(form).find(".form-control").val("");
+          }
+          form_btn.prop("disabled", false).html(form_btn_old_msg);
+          $(form_result_div).html(data.message).fadeIn("slow");
+          setTimeout(function () {
+            $(form_result_div).fadeOut("slow");
+          }, 6000);
+        },
+      });
+    },
   });
 }
 
@@ -799,7 +801,7 @@ if ($("#search-popup").length) {
   });
 }
 
-if ($.fn.niceSelect) { if ($.fn.niceSelect) { $("select:not(.ignore)").niceSelect(); } }
+$("select:not(.ignore)").niceSelect();
 
 // Dom Ready Function
 jQuery(document).on("ready", function () {
@@ -826,4 +828,4 @@ jQuery(window).on("load", function () {
   })(jQuery);
 });
 
-if ($.fn.enllax) { if ($.fn.enllax) { $(window).enllax(); } }
+$(window).enllax();
