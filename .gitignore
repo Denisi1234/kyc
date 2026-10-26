@@ -1,0 +1,36 @@
+# Environment & secrets
+.env
+.env.*
+!.env.example
+kyc_portal/.env
+kyc_portal/.env.*
+!kyc_portal/.env.example
+
+# Dependencies
+/node_modules
+kyc_portal/node_modules/
+kyc_portal/vendor/
+
+# Laravel runtime & logs
+kyc_portal/public/hot
+kyc_portal/public/storage
+kyc_portal/storage/*.key
+kyc_portal/storage/pail
+kyc_portal/storage/logs/*.log
+kyc_portal/storage/framework/cache/data/*
+!kyc_portal/storage/framework/cache/data/.gitignore
+kyc_portal/storage/framework/sessions/*
+!kyc_portal/storage/framework/sessions/.gitignore
+kyc_portal/storage/framework/views/*
+!kyc_portal/storage/framework/views/.gitignore
+kyc_portal/bootstrap/cache/*.php
+!kyc_portal/bootstrap/cache/.gitignore
+kyc_portal/database/*.sqlite
+kyc_portal/database/*.sqlite-journal
+
+# OS & Editor files
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
