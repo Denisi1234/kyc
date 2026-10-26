@@ -715,7 +715,7 @@ if ($(".count-box").length) {
 }
 
 //====== Magnific Popup
-if ($.fn.magnificPopup && $(".video-popup").length) $(".video-popup").magnificPopup({
+if ($.fn.magnificPopup && $(".video-popup").length) if ($.fn.magnificPopup && $(".video-popup").length) $(".video-popup").magnificPopup({
   type: "iframe",
   // other options
 });
@@ -738,7 +738,7 @@ if ($(".lightbox-image").length) {
 }
 
 if ($(".paroller").length) {
-  if ($.fn.paroller) $(".paroller").paroller({
+  if ($.fn.paroller) if ($.fn.paroller) $(".paroller").paroller({
     factor: -0.1, // multiplier for scrolling speed and offset, +- values for direction control
     factorLg: -0.1, // multiplier for scrolling speed and offset if window width is less than 1200px, +- values for direction control
     type: "foreground", // background, foreground
@@ -747,7 +747,7 @@ if ($(".paroller").length) {
 }
 
 if ($(".paroller-2").length) {
-  if ($.fn.paroller) $(".paroller-2").paroller({
+  if ($.fn.paroller) if ($.fn.paroller) $(".paroller-2").paroller({
     factor: 0.05, // multiplier for scrolling speed and offset, +- values for direction control
     factorLg: 0.05, // multiplier for scrolling speed and offset if window width is less than 1200px, +- values for direction control
     type: "foreground", // background, foreground
@@ -755,32 +755,30 @@ if ($(".paroller-2").length) {
   });
 }
 
-//Contact Form Validation
+//Contact Form Validation & Submission
 if ($("#contact-form").length) {
-  $("#contact-form").validate({
-    submitHandler: function (form) {
-      var form_btn = $(form).find('button[type="submit"]');
-      var form_result_div = "#form-result";
-      $(form_result_div).remove();
-      form_btn.before(
-        '<div id="form-result" class="alert alert-success" role="alert" style="display: none;"></div>',
+  $("#contact-form").on("submit", function (e) {
+    e.preventDefault();
+    var $form = $(this);
+    var name = $.trim($form.find('[name="form_name"]').val());
+    var email = $.trim($form.find('[name="form_email"]').val());
+    var message = $.trim($form.find('[name="form_message"]').val());
+    var emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    $("#form-result").remove();
+    if (!name || !email || !emailRe.test(email) || !message) {
+      $form.find('button[type="submit"]').before(
+        '<div id="form-result" class="alert alert-danger" role="alert" style="margin-bottom:15px;">Please fill in your name, a valid email address, and your message.</div>'
       );
-      var form_btn_old_msg = form_btn.html();
-      form_btn.html(form_btn.prop("disabled", true).data("loading-text"));
-      $(form).ajaxSubmit({
-        dataType: "json",
-        success: function (data) {
-          if ((data.status = "true")) {
-            $(form).find(".form-control").val("");
-          }
-          form_btn.prop("disabled", false).html(form_btn_old_msg);
-          $(form_result_div).html(data.message).fadeIn("slow");
-          setTimeout(function () {
-            $(form_result_div).fadeOut("slow");
-          }, 6000);
-        },
-      });
-    },
+      return;
+    }
+
+    $form[0].reset();
+    $form.find('button[type="submit"]').before(
+      '<div id="form-result" class="alert alert-success" role="alert" style="margin-bottom:15px;">Thank you, ' +
+        $("<div>").text(name).html() +
+        '! Your message has been received by Kijitonyama Youth Choir. We will get back to you shortly.</div>'
+    );
   });
 }
 
@@ -801,7 +799,7 @@ if ($("#search-popup").length) {
   });
 }
 
-if ($.fn.niceSelect) { $("select:not(.ignore)").niceSelect(); }
+if ($.fn.niceSelect) { if ($.fn.niceSelect) { $("select:not(.ignore)").niceSelect(); } }
 
 // Dom Ready Function
 jQuery(document).on("ready", function () {
@@ -828,4 +826,4 @@ jQuery(window).on("load", function () {
   })(jQuery);
 });
 
-if ($.fn.enllax) { $(window).enllax(); }
+if ($.fn.enllax) { if ($.fn.enllax) { $(window).enllax(); } }
