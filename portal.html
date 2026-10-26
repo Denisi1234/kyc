@@ -489,37 +489,6 @@
             <!--End footer area-->
 
 
-        <!-- search-popup -->
-        <div id="search-popup" class="search-popup">
-            <div class="close-search">
-                <img decoding="async" src="assets/images/icon/cross-out.png" alt="">
-            </div>
-            <div class="popup-inner">
-                <div class="overlay-layer"></div>
-                <div class="search-form">
-                    <form method="post" action="index.html">
-                        <div class="form-group">
-                            <fieldset>
-                                <input type="search" class="form-control" name="search-input" value=""
-                                    placeholder="Search the KYC website" required>
-                                <input type="submit" value="Search KYC" class="theme-btn style-four">
-                            </fieldset>
-                        </div>
-                    </form>
-                    <h3>Explore KYC</h3>
-                                        <ul class="recent-searches">
-                        <li><a href="mission.html">Mission &amp; Vision</a></li>
-                        <li><a href="leadership.html">Leadership</a></li>
-                        <li><a href="gallery.html">Gallery</a></li>
-                        <li><a href="news.html">News</a></li>
-                        <li><a href="join.html">Join the Choir</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <!-- search-popup end -->
-
-
     </div>
 
 
@@ -533,6 +502,14 @@
             var PORTAL_URL = isLocal ? 'http://127.0.0.1:8090' : '/portal';
             var emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             var phoneRe = /^\+?[0-9\s-]{9,15}$/;
+
+            try {
+                var qMode = new URLSearchParams(window.location.search).get('mode');
+                if (qMode === 'register' || window.location.hash === '#register') {
+                    document.getElementById('kycLoginBox').hidden = true;
+                    document.getElementById('kycRegisterBox').hidden = false;
+                }
+            } catch (err) {}
 
             document.querySelectorAll('[data-portal-path]').forEach(function (a) {
                 a.href = PORTAL_URL + a.getAttribute('data-portal-path');

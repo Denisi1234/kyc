@@ -176,7 +176,7 @@ function isotopeBlock() {
 isotopeBlock();
 
 function beforeAfterTwentyTwenty() {
-  if ($(".before-after-twentytwenty").length) {
+  if ($(".before-after-twentytwenty").length && $.fn.twentytwenty) {
     $(".before-after-twentytwenty").each(function () {
       var Self = $(this);
       var objName = Self.attr("id");
@@ -199,7 +199,7 @@ function beforeAfterTwentyTwenty() {
 //Fact counter
 function CounterNumberChanger() {
   var timer = $(".timer");
-  if (timer.length) {
+  if (timer.length && $.fn.appear && $.fn.countTo) {
     timer.appear(function () {
       timer.countTo();
     });
@@ -251,7 +251,7 @@ function projectMasonaryLayout() {
 // ===Image Hover Script===
 function onHoverthreeDmovement() {
   var tiltBlock = $(".js-tilt");
-  if (tiltBlock.length) {
+  if (tiltBlock.length && $.fn.tilt) {
     $(".js-tilt").tilt({
       maxTilt: 20,
       perspective: 700,
@@ -325,14 +325,14 @@ function swithcerMenu() {
 
 // Date picker
 function datepicker() {
-  if ($("#datepicker").length) {
+  if ($("#datepicker").length && $.fn.datepicker) {
     $("#datepicker").datepicker();
   }
 }
 
 // Price Filter
 function priceFilter() {
-  if ($(".price-ranger").length) {
+  if ($(".price-ranger").length && $.fn.slider) {
     $(".price-ranger #slider-range").slider({
       range: true,
       min: 10,
@@ -406,7 +406,7 @@ function bannerSlider() {
 
 //===Language switcher===
 function languageSwitcher() {
-  if ($("#polyglot-language-options").length) {
+  if ($("#polyglot-language-options").length && $.fn.polyglotLanguageSwitcher) {
     $("#polyglotLanguageSwitcher").polyglotLanguageSwitcher({
       effect: "slide",
       animSpeed: 500,
@@ -581,7 +581,7 @@ if ($(".team-carousel").length) {
 }
 
 // Vegas Slider
-if ($(".slider-bg-slide").length) {
+if ($(".slider-bg-slide").length && $.fn.vegas) {
   $(".slider-bg-slide").each(function () {
     var Self = $(this);
     var bgSlideOptions = Self.data("options");
@@ -611,7 +611,7 @@ if ($(".accordion-box").length) {
   });
 }
 
-if ($(".dial").length) {
+if ($(".dial").length && $.fn.appear && $.fn.knob) {
   $(".dial").appear(
     function () {
       var elm = $(this);
