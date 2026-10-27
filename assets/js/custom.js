@@ -21,6 +21,58 @@
 
 "use strict";
 
+// Warm up same-site pages when visitors show intent to navigate.
+(function () {
+  if (!document.createElement("link").relList.supports("prefetch")) return;
+
+  var prefetchedPages = new Set();
+
+  function prefetchPage(link) {
+    if (!link || link.target === "_blank" || link.hasAttribute("download")) return;
+
+    var destination;
+    try {
+      destination = new URL(link.href, window.location.href);
+    } catch (error) {
+      return;
+    }
+
+    if (
+      destination.origin !== window.location.origin ||
+      !/\.html?$/i.test(destination.pathname) ||
+      destination.pathname === window.location.pathname ||
+      prefetchedPages.has(destination.href)
+    ) {
+      return;
+    }
+
+    prefetchedPages.add(destination.href);
+    var hint = document.createElement("link");
+    hint.rel = "prefetch";
+    hint.href = destination.href;
+    hint.as = "document";
+    document.head.appendChild(hint);
+  }
+
+  document.addEventListener(
+    "pointerover",
+    function (event) {
+      if (event.pointerType === "mouse") {
+        prefetchPage(event.target.closest("a[href]"));
+      }
+    },
+    { passive: true }
+  );
+
+  document.addEventListener(
+    "focusin",
+    function (event) {
+      prefetchPage(event.target.closest("a[href]"));
+    },
+    { passive: true }
+  );
+})();
+
 //Submenu Dropdown Toggle
 if ($(".main-header li.dropdown ul").length) {
   $(".main-header .navigation li.dropdown").append(
@@ -130,33 +182,6 @@ if ($(".scroll-to-target").length) {
       1000,
     );
   });
-}
-
-//Parallax Scene for Icons
-if ($(".parallax-scene-1").length) {
-  var scene = $(".parallax-scene-1").get(0);
-  var parallaxInstance = new Parallax(scene);
-}
-if ($(".parallax-scene-2").length) {
-  var scene = $(".parallax-scene-2").get(0);
-  var parallaxInstance = new Parallax(scene);
-}
-if ($(".parallax-scene-3").length) {
-  var scene = $(".parallax-scene-3").get(0);
-  var parallaxInstance = new Parallax(scene);
-}
-if ($(".parallax-scene-4").length) {
-  var scene = $(".parallax-scene-4").get(0);
-  var parallaxInstance = new Parallax(scene);
-}
-if ($(".parallax-scene-5").length) {
-  var scene = $(".parallax-scene-5").get(0);
-  var parallaxInstance = new Parallax(scene);
-}
-
-//Add One Page nav
-if ($(".scroll-nav").length) {
-  $(".scroll-nav").onePageNav();
 }
 
 // Cart Touch Spin
@@ -349,58 +374,6 @@ function priceFilter() {
     $(".price-ranger .ranger-min-max-block .max").val(
       "$" + $(".price-ranger #slider-range").slider("values", 1),
     );
-  }
-}
-
-function bannerSlider() {
-  if ($(".banner-slider").length > 0) {
-    var bannerSlider = new Swiper(".banner-slider", {
-      spaceBetween: 0,
-      slidesPerView: 1,
-      mousewheel: true,
-      height: 640,
-      grabCursor: true,
-      loop: true,
-      speed: 1400,
-      autoplay: {
-        delay: 5000,
-      },
-      pagination: {
-        el: ".swiper-pagination",
-        type: "progressbar",
-      },
-      navigation: {
-        nextEl: ".banner-slider-button-next",
-        prevEl: ".banner-slider-button-prev",
-      },
-    });
-    bannerSlider.on("slideChange", function () {
-      var csli = bannerSlider.realIndex + 1,
-        curnum = $("#current");
-      TweenMax.to(curnum, 0.2, {
-        force3D: true,
-        y: -10,
-        opacity: 0,
-        ease: Power2.easeOut,
-        onComplete: function () {
-          TweenMax.to(curnum, 0.1, {
-            force3D: true,
-            y: 10,
-          });
-          curnum.html("0" + csli);
-        },
-      });
-      TweenMax.to(curnum, 0.2, {
-        force3D: true,
-        y: 0,
-        delay: 0.3,
-        opacity: 1,
-        ease: Power2.easeOut,
-      });
-    });
-
-    var totalSlides = bannerSlider.slides.length - 2;
-    $("#total").html("0" + totalSlides);
   }
 }
 
@@ -714,12 +687,6 @@ if ($(".count-box").length) {
   );
 }
 
-//====== Magnific Popup
-$(".video-popup").magnificPopup({
-  type: "iframe",
-  // other options
-});
-
 //LightBox / Fancybox
 if ($(".lightbox-image").length) {
   $(".lightbox-image").fancybox({
@@ -801,7 +768,9 @@ if ($("#search-popup").length) {
   });
 }
 
-$("select:not(.ignore)").niceSelect();
+if ($.fn.niceSelect) {
+  $("select:not(.ignore)").niceSelect();
+}
 
 // Dom Ready Function
 jQuery(document).on("ready", function () {
@@ -823,9 +792,8 @@ jQuery(document).on("ready", function () {
 jQuery(window).on("load", function () {
   (function ($) {
     projectMasonaryLayout();
-    bannerSlider();
     isotopeBlock();
   })(jQuery);
 });
 
-$(window).enllax();
+

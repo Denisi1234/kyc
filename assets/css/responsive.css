@@ -5431,10 +5431,10 @@
 
 }
 
-/* KYC logo palette, scoped to the shared footer only */
+/* Keep the dark footer and use the Pikasa lime accent throughout its content and icons. */
 footer.footer-area {
-    --thm-base: #f0e8d0;
-    --thm-base-rgb: 240, 232, 208;
+    --thm-base: #a4c10a;
+    --thm-base-rgb: 164, 193, 10;
 }
 
 footer.footer-area .footer,
@@ -5442,15 +5442,15 @@ footer.footer-area .footer-bottom {
     background-color: #000000;
 }
 
-footer.footer-area .single-footer-widget .title:before,
-footer.footer-area .footer-widget-info-box h2 span:before {
-    background-image: none;
-    background-color: #f0e8d0;
-}
-
-/* Improve contrast over the choir photography without changing the template layout */
-.main-header.header-style-one {
-    background: linear-gradient(180deg, rgba(0, 0, 0, 0.48), rgba(0, 0, 0, 0.20));
+footer.footer-area .single-footer-widget .title h3,
+footer.footer-area .single-footer-widget .title h3 span,
+footer.footer-area .single-footer-widget .our-company-info .text-box p,
+footer.footer-area .footer-widget-links ul li a,
+footer.footer-area .footer-social-link ul li a,
+footer.footer-area .footer-bottom .copyright p,
+footer.footer-area .footer-bottom .copyright p a,
+footer.footer-area .footer-widget-info-box h2 {
+    color: #a4c10a;
 }
 
 .main-slider.style1 {
@@ -5522,5 +5522,157 @@ footer.footer-area .footer-widget-info-box h2 span:before {
     .main-header .mobile-nav-toggler .icon-bar {
         width: 28px;
         margin: 6px 5px;
+    }
+}
+
+/* Keep the existing Pikasa header fixed after the page is scrolled. */
+.main-header.header-style-one.kyc-sticky {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 99999;
+    background: #ffffff !important;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.12);
+}
+
+.main-header.kyc-sticky .main-menu .navigation > li > a {
+    color: var(--thm-black);
+    padding-top: 26px;
+    padding-bottom: 26px;
+}
+
+.main-header.kyc-sticky .main-menu .navigation > li:hover > a,
+.main-header.kyc-sticky .main-menu .navigation > li.current > a {
+    color: #ffffff;
+}
+
+.main-header.kyc-sticky .main-logo-box img {
+    height: 50px;
+    width: auto;
+}
+
+.main-header.kyc-sticky .mobile-nav-toggler .icon-bar {
+    background: var(--thm-black);
+}
+
+/* Make the shared header readable on inner pages without a banner. */
+.main-header.header-style-one.portal-solid-header {
+    position: relative;
+    background: #ffffff;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
+}
+
+.main-header.portal-solid-header .main-menu .navigation > li > a {
+    color: var(--thm-black);
+}
+
+.main-header.portal-solid-header .main-menu .navigation > li:hover > a,
+.main-header.portal-solid-header .main-menu .navigation > li.current > a {
+    color: #ffffff;
+}
+
+.main-header.portal-solid-header .mobile-nav-toggler .icon-bar {
+    background: var(--thm-black);
+}
+
+.main-header.portal-solid-header + section.kyc-clean-page,
+.main-header.portal-solid-header + section.kyc-contact-area,
+.main-header.portal-solid-header + section.kyc-join-area,
+.main-header.portal-solid-header + section.kyc-portal-forms {
+    padding-top: 0 !important;
+}
+
+/* Keep the footer's dark layout while replacing its green accents with white. */
+.footer-area .single-footer-widget .title:before,
+.footer-area .single-footer-widget .title.title--base-clr:before {
+    background: #ffffff;
+    background-image: none;
+}
+
+.footer-area .footer-social-link ul li a:before {
+    background: #ffffff;
+}
+
+.footer-area .footer-social-link ul li:hover a,
+.footer-area .footer-widget-links ul li a:hover,
+.footer-area .footer-widget-info-box h2 span,
+.footer-area .footer-widget-info-box ul li a:hover,
+.footer-area .footer-bottom .bottom-inner .copyright p a {
+    color: #ffffff;
+}
+
+.footer-area .footer-widget-info-box h2 span:before,
+.footer-area .footer-widget-info-box ul li a::before {
+    background: #ffffff;
+}
+
+.footer-area .footer-widget-blog-items li .title-box p {
+    background: #ffffff;
+    background-image: none;
+    -webkit-text-fill-color: #ffffff;
+}
+
+/* Preserve the Pikasa title appearance after promoting page titles to H1. */
+.sec-title-style2 h1 {
+    font-size: 48px;
+    line-height: 1.2em;
+}
+
+.sec-title-style2 h1 span {
+    font-weight: 300;
+}
+
+.sec-title-style7 h1 {
+    font-size: 48px;
+    line-height: 1.2em;
+    font-weight: 300;
+}
+
+.main-slider.style1 .content .big-title h1 {
+    color: #ffffff;
+    font-size: 92px;
+    line-height: 1.2em;
+    font-weight: 700;
+    text-transform: none;
+    animation: animation1 5s ease-in infinite;
+}
+
+.main-slider.style1 .content .big-title h1 span {
+    font-weight: 300;
+}
+
+.main-slider.style1 .content .big-title h1 span.thm-color {
+    color: var(--thm-base);
+}
+
+.main-slider.style1 .content .big-title h1 span.color-white {
+    color: #ffffff;
+}
+
+@media only screen and (min-width: 992px) and (max-width: 1199px) {
+    .main-slider.style1 .content .big-title h1 {
+        font-size: 72px;
+    }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+    .main-slider.style1 .content .big-title h1 {
+        font-size: 62px;
+    }
+}
+
+@media only screen and (max-width: 767px) {
+    .sec-title-style2 h1 {
+        font-size: 38px;
+        line-height: 1.2em;
+    }
+
+    .main-slider.style1 .content .big-title h1 {
+        font-size: 52px;
+    }
+
+    .main-slider.style1 .content .big-title h1 br {
+        display: none;
     }
 }

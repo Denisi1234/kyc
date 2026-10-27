@@ -1,5 +1,4 @@
 User-agent: *
 Allow: /
-Disallow: /error.html
 
 Sitemap: https://kijitonyamayouthchoir.co.tz/sitemap.xml
